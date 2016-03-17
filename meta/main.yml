@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  author: Ian Cordasco
+  author: OpenStack-Ansible
   description: Deploy Magnum with OpenStack Ansible
-  company: Rackspace
+  company: OpenStack
   license: Apache-2.0
   min_ansible_version: 1.9
   version: 0.1.0

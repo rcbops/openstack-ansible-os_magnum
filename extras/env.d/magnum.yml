@@ -13,4 +13,4 @@ container_skel:
       - magnum_api
     properties:
       service_name: magnum
-      contianer_release: trusty
+      container_release: trusty
