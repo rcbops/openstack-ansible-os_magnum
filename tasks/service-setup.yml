@@ -69,7 +69,7 @@
   until: ensure_magnum_roles |success
   retries: 5
   delay: 2
-  with_items: magnum_service_role_names
+  with_items: "{{ magnum_service_role_names }}"
   tags:
     - magnum-api-setup
     - magnum-role-setup

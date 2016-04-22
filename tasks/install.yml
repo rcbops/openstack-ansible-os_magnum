@@ -34,7 +34,7 @@
   until: install_magnum_apt_packages |success
   retries: 5
   delay: 2
-  with_items: magnum_apt_packages
+  with_items: "{{ magnum_apt_packages }}"
   tags:
     - magnum-apt-packages
     - magnum-install
@@ -48,7 +48,7 @@
   until: install_magnum_pip_packages |success
   retries: 5
   delay: 2
-  with_items: magnum_pip_packages
+  with_items: "{{ magnum_pip_packages }}"
   tags:
     - magnum-install
     - magnum-pip-packages
