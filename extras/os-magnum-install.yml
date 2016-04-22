@@ -55,22 +55,18 @@
         rabbitmq_servers: "{{ servers.sorted_list }}"
     - name: Create log dir
       file:
-        path: "{{ item.path }}"
+        path: "/openstack/log/{{ inventory_hostname }}-magnum"
         state: directory
-      with_items:
-        - { path: "/openstack/log/{{ inventory_hostname }}-magnum" }
       when: is_metal | bool
       tags:
         - magnum-logs
         - magnum-log-dirs
     - name: Create log aggregation links
       file:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        state: "{{ item.state }}"
+        src: "/openstack/log/{{ inventory_hostname }}-magnum"
+        dest: "/var/log/magnum"
+        state: "link"
         force: "yes"
-      with_items:
-        - { src: "/openstack/log/{{ inventory_hostname }}-magnum", dest: "/var/log/magnum", state: "link" }
       when: is_metal | bool
       tags:
         - magnum-logs
