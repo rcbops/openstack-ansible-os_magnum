@@ -42,7 +42,7 @@
 - name: Install pip packages for Magnum
   pip:
     name: "{{ item }}"
-    state: "present"
+    state: "latest"
     extra_args: "{{ pip_install_options |default('') }}"
   register: install_magnum_pip_packages
   until: install_magnum_pip_packages |success
