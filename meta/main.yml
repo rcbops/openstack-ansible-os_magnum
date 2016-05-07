@@ -18,9 +18,8 @@ galaxy_info:
   - python
   - magnum
 dependencies:
+  - pip_install
   - role: apt_package_pinning
     when:
       - ansible_pkg_mgr == 'apt'
   - galera_client
-  - role: pip_install
-    pip_lock_to_internal_repo: "{{ not keystone_developer_mode | bool }}"
