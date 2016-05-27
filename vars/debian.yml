@@ -1,5 +1,5 @@
 ---
-# Copyright 2016, Ian Cordasco
+# Copyright 2016, Walmart Stores, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,22 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: magnum_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
-  tags:
-    - magnum-install
+## APT Cache options
+cache_timeout: 600
 
-- name: Install pip packages for Magnum
-  pip:
-    name: "{{ item }}"
-    state: "latest"
-    extra_args: "{{ pip_install_options |default('') }}"
-  register: install_magnum_pip_packages
-  until: install_magnum_pip_packages |success
-  retries: 5
-  delay: 2
-  with_items: "{{ magnum_pip_packages }}"
-  tags:
-    - magnum-install
-    - magnum-pip-packages
+# Common apt packages
+magnum_apt_packages:
+  - python-dev
+  - libssl-dev
+  - libxml2-dev
+  - libmysqlclient-dev
+  - libxslt-dev
+  - libpq-dev
+  - git
+  - libffi-dev
+  - gettext
+  - build-essential

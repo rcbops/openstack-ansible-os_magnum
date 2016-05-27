@@ -62,18 +62,6 @@ magnum_service_project_domain_name: Default
 magnum_service_user_domain_name: default
 magnum_service_project_name: service
 
-magnum_apt_packages:
-  - python-dev
-  - libssl-dev
-  - libxml2-dev
-  # - libmysqlclient-dev
-  - libxslt-dev
-  - libpq-dev
-  - git
-  - libffi-dev
-  - gettext
-  - build-essential
-
 magnum_pip_packages:
   - Babel
   - PrettyTable

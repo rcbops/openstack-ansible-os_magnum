@@ -18,7 +18,9 @@ galaxy_info:
   - python
   - magnum
 dependencies:
-  - apt_package_pinning
+  - role: apt_package_pinning
+    when:
+      - ansible_pkg_mgr == 'apt'
   - galera_client
   - pip_install
   - pip_lock_down
