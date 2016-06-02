@@ -43,9 +43,27 @@ magnum_service_adminurl: "{{ magnum_service_adminuri_protocol }}://{{ internal_l
 magnum_config_overrides: {}
 magnum_policy_overrides: {}
 
+# Name of the virtual env to deploy into
+magnum_venv_tag: untagged
+magnum_venv_bin: "/openstack/venvs/magnum-{{ magnum_venv_tag }}/bin"
+
+# Set this to enable or disable installing in a venv
+magnum_venv_enabled: true
+
+# The bin path defaults to the venv path however if installation in a
+#  venv is disabled the bin path will be dynamically set based on the
+#  system path used when the installing.
+magnum_bin: "{{ magnum_venv_bin }}"
+
+magnum_venv_download_url: http://127.0.0.1/venvs/untagged/ubuntu/magnum.tgz
+
 magnum_git_repo: "https://git.openstack.org/openstack/magnum"
-magnum_git_install_branch: c09af59f0f06db9e74a334aaee4c493119384ea7 # master
-magnum_git_dest: "/opt/magnum_{{ magnum_git_install_branch |replace('/', '_') }}"
+magnum_git_install_branch: master
+magnum_requirements_git_repo: https://git.openstack.org/openstack/requirements
+magnum_requirements_git_install_branch: master
+magnum_developer_mode: false
+magnum_developer_constraints:
+  - "git+{{ magnum_git_repo }}@{{ magnum_git_install_branch }}#egg=magnum"
 
 # Database vars
 magnum_galera_database_name: magnum_service

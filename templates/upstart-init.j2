@@ -1,7 +1,5 @@
 # {{ ansible_managed }}
 
-# vim:set ft=upstart ts=2 et:
-
 description "{{ program_name }}"
 author "Kevin Carter <kevin.carter@rackspace.com>"
 
@@ -12,7 +10,7 @@ respawn
 respawn limit 10 5
 
 # Set the RUNBIN environment variable
-env RUNBIN="/usr/local/bin/{{ program_name }}"
+env RUNBIN="{{ magnum_bin }}/{{ program_name }}"
 
 # Change directory to service users home
 chdir "{{ service_home }}"
@@ -24,6 +22,11 @@ pre-start script
 
   mkdir -p "/var/lock/{{ program_name }}"
   chown {{ system_user }}:{{ system_group }} "/var/lock/{{ program_name }}"
+
+  {% if magnum_venv_enabled | bool -%}
+  . {{ magnum_venv_bin }}/activate
+  {%- endif %}
+
 end script
 
 # Post stop actions
@@ -36,6 +39,6 @@ exec start-stop-daemon --start \
                        --chuid {{ system_user }} \
                        --make-pidfile \
                        --pidfile /var/run/{{ program_name }}/{{ program_name }}.pid \
-                       --exec "{{ program_override |default('$RUNBIN') }}" \
-                       -- {{ program_config_options |default('') }} \
-                       --log-file={{ log_directory }}/{{ program_name }}.log
+                       --exec "{{ program_override|default('$RUNBIN') }}" \
+                       -- {{ program_config_options|default('') }} \
+                       --log-file=/var/log/magnum/{{ program_name }}.log
