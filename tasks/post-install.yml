@@ -31,6 +31,10 @@
       destination: "{{ magnum_etc_directory }}/policy.json"
       config_overrides: "{{ magnum_policy_overrides }}"
       config_type: "json"
+    - source: "api-paste.ini.j2"
+      destination: "{{ magnum_etc_directory }}/api-paste.ini"
+      config_overrides: "{{ magnum_api_paste_ini_overrides }}"
+      config_type: "ini"
   tags:
     - magnum-config-files
     - magnum-configuration
