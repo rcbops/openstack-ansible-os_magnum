@@ -1,9 +1,9 @@
 ## Magnum
 magnum_service_port: 9511
 magnum_service_proto: http
-magnum_service_publicuri_protocol: "{{ openstack_service_adminuri_proto | default(magnum_service_proto) }}"
-magnum_service_internaluri_protocol: "{{ openstack_service_adminuri_proto | default(magnum_service_proto) }}"
-magnum_service_adminuri_protocol: "{{ openstack_service_adminuri_proto | default(magnum_service_proto) }}"
+magnum_service_publicuri_proto: "{{ openstack_service_adminuri_proto | default(magnum_service_proto) }}"
+magnum_service_internaluri_proto: "{{ openstack_service_adminuri_proto | default(magnum_service_proto) }}"
+magnum_service_adminuri_proto: "{{ openstack_service_adminuri_proto | default(magnum_service_proto) }}"
 magnum_service_user_name: magnum
 magnum_service_project_name: service
 magnum_service_project_domain_id: default
