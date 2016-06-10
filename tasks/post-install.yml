@@ -39,3 +39,16 @@
     - magnum-config-files
     - magnum-configuration
     - magnum-post-install
+
+- name: Upload images to Glance
+  glance:
+    command: 'image-create'
+    image_name: "{{ item.name }}"
+    image_disk_format: "{{ item.disk_format }}"
+    image_container_format: "{{ item.image_format }}"
+    image_is_public: "{{ item.public }}"
+    image_url: "{{ item.file }}"
+    image_properties: {"os_distro": "{{ item.distro }}"}
+    insecure: "{{ keystone_service_internaluri_insecure }}"
+    openrc_path: /root/openrc
+  with_items: "{{ magnum_glance_images }}"

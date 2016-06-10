@@ -81,6 +81,16 @@ magnum_service_project_domain_name: Default
 magnum_service_user_domain_name: default
 magnum_service_project_name: service
 
+#Glance images
+magnum_glance_images: []
+## Example Glance Image - Fedora Atomic
+#  - name: fedora-atomic-latest         #Name of the image in Glance
+#    disk_format: qcow2                 #Disk format (e.g. qcow2)
+#    image_format: bare                 #Image format
+#    public: true                       #Boolean - is the image public
+#    file: https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2
+#    distro: fedora-atomic              #Value for the os_distro metadata
+
 magnum_requires_pip_packages:
   - httplib2
   - python-keystoneclient
