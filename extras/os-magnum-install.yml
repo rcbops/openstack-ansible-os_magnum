@@ -96,6 +96,7 @@
           identity_uri: "{{ keystone_service_internaluri }}"
           insecure: "{{ keystone_service_internaluri_insecure |bool }}"
           auth_type: "{{ magnum_keystone_auth_plugin }}"
+          auth_version: "v3"
           signing_dir: "{{ magnum_system_user_home }}/cache/api"
           auth_url: "{{ keystone_service_internaluri }}"
           auth_uri: "{{ keystone_service_internaluri }}"
