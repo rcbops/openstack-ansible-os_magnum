@@ -101,6 +101,7 @@ magnum_pip_packages:
   - Babel
   - MySQL-python
   - PrettyTable
+  - PyMySQL
   - PyYAML
   - SQLAlchemy
   - WSME
