@@ -13,36 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Create Magnum's database tables
-  mysql_db:
-    login_user: "{{ galera_root_user }}"
-    login_password: "{{ galera_root_password }}"
-    login_host: "{{ magnum_galera_address }}"
-    name: "{{ magnum_galera_database_name }}"
-    state: "present"
-  tags:
-    - magnum-database-setup
-    - magnum-db-setup
-    - magnum-setup
-
-- name: Give Magnum database access
-  mysql_user:
-    login_user: "{{ galera_root_user }}"
-    login_password: "{{ galera_root_password }}"
-    login_host: "{{ magnum_galera_address }}"
-    name: "{{ magnum_galera_user }}"
-    password: "{{ magnum_galera_password }}"
-    priv: "{{ magnum_galera_database_name }}.*:ALL"
-    host: "{{ item }}"
-    state: "present"
-  with_items:
-    - "localhost"
-    - "%"
-  tags:
-    - magnum-database-setup
-    - magnum-db-setup
-    - magnum-setup
-
 - name: Perform a synchronization of the Magnum database
   command: "{{ magnum_venv_bin}}/magnum-db-manage upgrade"
   sudo: yes
