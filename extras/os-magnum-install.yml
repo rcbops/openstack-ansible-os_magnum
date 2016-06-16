@@ -44,6 +44,37 @@
       retries: 3
       tags:
         - ssh-wait
+    - name: Sort the rabbitmq servers
+      dist_sort:
+        value_to_lookup: "{{ container_name }}"
+        ref_list: "{{ groups['magnum_all'] }}"
+        src_list: "{{ rabbitmq_servers }}"
+      register: servers
+    - name: Set rabbitmq servers
+      set_fact:
+        rabbitmq_servers: "{{ servers.sorted_list }}"
+    - name: Ensure the Magnum RabbitMQ virtualhost exists
+      rabbitmq_vhost:
+        name: "{{ magnum_rabbitmq_vhost }}"
+        state: "present"
+      delegate_to: "{{ groups['rabbitmq_all'][0] }}"
+      tags:
+        - magnum-rabbitmq
+        - magnum-rabbitmq-vhost
+        - magnum-rabbitmq-virtualhost
+    - name: Ensure the Magnum RabbitMQ user exists
+      rabbitmq_user:
+        user: "{{ magnum_rabbitmq_userid }}"
+        password: "{{ magnum_rabbitmq_password }}"
+        vhost: "{{ magnum_rabbitmq_vhost }}"
+        configure_priv: ".*"
+        read_priv: ".*"
+        write_priv: ".*"
+        state: "present"
+      delegate_to: "{{ groups['rabbitmq_all'][0] }}"
+      tags:
+        - magnum-rabbitmq
+        - magnum-rabbitmq-user
     - name: Create Magnum's database tables
       mysql_db:
         login_user: "{{ galera_root_user }}"
@@ -72,15 +103,6 @@
         - magnum-database-setup
         - magnum-db-setup
         - magnum-setup
-    - name: Sort the rabbitmq servers
-      dist_sort:
-        value_to_lookup: "{{ container_name }}"
-        ref_list: "{{ groups['magnum_all'] }}"
-        src_list: "{{ rabbitmq_servers }}"
-      register: servers
-    - name: Set rabbitmq servers
-      set_fact:
-        rabbitmq_servers: "{{ servers.sorted_list }}"
     - name: Create log dir
       file:
         path: "/openstack/log/{{ inventory_hostname }}-magnum"
@@ -110,9 +132,10 @@
         - "system-crontab-coordination"
   vars:
     galera_address: "{{ internal_lb_vip_address }}"
-
     magnum_galera_address: "{{ internal_lb_vip_address }}"
     magnum_galera_database_name: magnum_service
     magnum_galera_user: magnum
+    magnum_rabbitmq_userid: magnum
+    magnum_rabbitmq_vhost: /magnum
     ansible_hostname: "{{ container_name }}"
     is_metal: "{{ properties.is_metal|default(false) }}"
