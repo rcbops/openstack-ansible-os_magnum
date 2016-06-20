@@ -82,6 +82,7 @@
         login_host: "{{ magnum_galera_address }}"
         name: "{{ magnum_galera_database_name }}"
         state: "present"
+      delegate_to: "{{ groups['galera_all'][0] }}"
       tags:
         - magnum-database-setup
         - magnum-db-setup
@@ -96,6 +97,7 @@
         priv: "{{ magnum_galera_database_name }}.*:ALL"
         host: "{{ item }}"
         state: "present"
+      delegate_to: "{{ groups['galera_all'][0] }}"
       with_items:
         - "localhost"
         - "%"
