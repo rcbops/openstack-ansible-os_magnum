@@ -81,6 +81,11 @@ magnum_service_project_domain_name: Default
 magnum_service_user_domain_name: default
 magnum_service_project_name: service
 
+# Trustee User
+magnum_trustee_domain_admin_name: trustee_domain_admin
+magnum_trustee_domain_name: magnum
+magnum_trustee_domain_admin_roles: ['admin']
+
 #Glance images
 magnum_glance_images: []
 ## Example Glance Image - Fedora Atomic
