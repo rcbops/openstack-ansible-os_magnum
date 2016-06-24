@@ -18,14 +18,14 @@ endpoint_type = internalURL
 endpoint_type = internalURL
 
 [keystone_authtoken]
-auth_uri = {{ keystone_service_internaluri }}
+auth_uri = {{ keystone_service_internalurl }}
 auth_version = v3
 insecure = {{ keystone_service_internaluri_insecure | bool }}
 signing_dir = {{ magnum_system_user_home }}/cache/api
 memcached_servers = {{ memcached_servers }}
 token_cache_time = 300
 revocation_cache_time = 60
-identity_uri = {{ keystone_service_internaluri }}}
+identity_uri = {{ keystone_service_internaluri }}
 auth_type = {{ magnum_keystone_auth_plugin }}
 auth_url = {{ keystone_service_internaluri }}
 project_domain_name = {{ magnum_service_project_domain_name }}
