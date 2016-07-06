@@ -52,3 +52,4 @@
     insecure: "{{ keystone_service_internaluri_insecure }}"
     openrc_path: /root/openrc
   with_items: "{{ magnum_glance_images }}"
+  when: inventory_hostname == groups['magnum_all'][0]

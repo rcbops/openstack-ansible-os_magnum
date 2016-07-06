@@ -98,6 +98,7 @@ magnum_glance_images: []
 
 magnum_requires_pip_packages:
   - httplib2
+  - python-glanceclient
   - python-keystoneclient
   - virtualenv
   - virtualenv-tools
