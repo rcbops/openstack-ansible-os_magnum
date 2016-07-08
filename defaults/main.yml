@@ -46,15 +46,7 @@ magnum_api_paste_ini_overrides: {}
 
 # Name of the virtual env to deploy into
 magnum_venv_tag: untagged
-magnum_venv_bin: "/openstack/venvs/magnum-{{ magnum_venv_tag }}/bin"
-
-# Set this to enable or disable installing in a venv
-magnum_venv_enabled: true
-
-# The bin path defaults to the venv path however if installation in a
-#  venv is disabled the bin path will be dynamically set based on the
-#  system path used when the installing.
-magnum_bin: "{{ magnum_venv_bin }}"
+magnum_bin: "/openstack/venvs/magnum-{{ magnum_venv_tag }}/bin"
 
 magnum_venv_download_url: http://127.0.0.1/venvs/untagged/ubuntu/magnum.tgz
 
