@@ -15,8 +15,8 @@
 
 - name: Perform a synchronization of the Magnum database
   command: "{{ magnum_venv_bin}}/magnum-db-manage upgrade"
-  sudo: yes
-  sudo_user: "{{ magnum_system_user_name }}"
+  become: yes
+  become_user: "{{ magnum_system_user_name }}"
   tags:
     - magnum-database-setup
     - magnum-db-setup
