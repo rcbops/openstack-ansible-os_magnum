@@ -66,6 +66,9 @@ magnum_galera_user: magnum
 magnum_rpc_backend: rabbit
 magnum_rabbitmq_userid: magnum
 magnum_rabbitmq_vhost: /magnum
+magnum_rabbitmq_servers: 127.0.0.1
+magnum_rabbitmq_use_ssl: False
+magnum_rabbitmq_port: 5672
 
 # Keystone AuthToken/Middleware
 magnum_keystone_auth_plugin: password
