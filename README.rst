@@ -1,5 +1,5 @@
 OpenStack-Ansible Magnum
-#######################
+########################
 :tags: openstack, magnum, cloud, ansible
 :category: \*nix
 
@@ -33,3 +33,4 @@ Example Playbook
        external_lb_vip_address: 172.16.24.1
        internal_lb_vip_address: 192.168.0.1
        magnum_galera_address: "{{ internal_lb_vip_address }}"
+
