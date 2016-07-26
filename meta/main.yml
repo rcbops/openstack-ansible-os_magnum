@@ -10,16 +10,19 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - trusty
+    - xenial
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   galaxy_tags:
-  - cloud
-  - openstack
-  - python
-  - magnum
+   - cloud
+   - openstack
+   - python
+   - magnum
+
 dependencies:
   - pip_install
   - role: apt_package_pinning
     when:
       - ansible_pkg_mgr == 'apt'
   - galera_client
+

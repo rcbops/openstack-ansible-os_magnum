@@ -23,13 +23,25 @@
   tags:
     - always
 
+- name: Check init system
+  command: cat /proc/1/comm
+  register: _pid1_name
+  tags:
+    - always
+
+- name: Set the name of pid1
+  set_fact:
+    pid1_name: "{{ _pid1_name.stdout }}"
+  tags:
+    - always
+
 - include: pre-install.yml
 
 - include: install.yml
 
 - include: post-install.yml
 
-- include: upstart-init.yml
+- include: magnum_init.yml
 
 - include: database-setup.yml
   when: >

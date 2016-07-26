@@ -20,24 +20,11 @@
     mode: "0644"
     owner: "root"
     group: "root"
-  tags:
-    - upstart-init
-    - magnum-upstart
-    - magnum-init
+  register: upstart_init
 
 - name: Reload init scripts
   shell: |
     initctl reload-configuration
-  tags:
-    - upstart-init
-    - magnum-upstart
-    - magnum-init
-
-- name: Load service
-  service:
-    name: "{{ program_name }}"
-    enabled: "yes"
-  tags:
-    - upstart-init
-    - magnum-upstart
-    - magnum-init
+  when: upstart_init | changed
+  notify:
+    - Restart magnum services

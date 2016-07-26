@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: upstart-common-init.yml
+- include: magnum_init_common.yml
   vars:
     program_name: "{{ magnum_api_program_name }}"
     service_name: "{{ magnum_service_name }}"
@@ -22,7 +22,7 @@
     service_home: "{{ magnum_system_user_home }}"
     log_directory: "{{ magnum_log_directory }}"
 
-- include: upstart-common-init.yml
+- include: magnum_init_common.yml
   vars:
     program_name: "{{ magnum_conductor_program_name }}"
     service_name: "{{ magnum_service_name }}"
