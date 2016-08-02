@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Set the package install state for distribution packages
+# Options are 'present' and 'latest'
+magnum_package_state: "latest"
+
 magnum_system_group_name: magnum
 magnum_system_user_name: magnum
 magnum_system_user_comment: Magnum System User
