@@ -33,7 +33,7 @@
 - name: Install apt packages for Magnum
   apt:
     pkg: "{{ item }}"
-    state: "latest"
+    state: "{{ magnum_package_state }}"
   register: install_magnum_apt_packages
   until: install_magnum_apt_packages |success
   retries: 5
