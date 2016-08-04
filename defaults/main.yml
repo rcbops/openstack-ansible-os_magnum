@@ -106,3 +106,9 @@ magnum_pip_packages:
   - MySQL-python
   - PyMySQL
   - magnum
+
+# This variable is used by the repo_build process to determine
+# which host group to check for members of before building the
+# pip packages required by this role. The value is picked up
+# by the py_pkgs lookup.
+magnum_role_project_group: magnum_all
