@@ -1,12 +1,8 @@
 OpenStack-Ansible Magnum
 ########################
-:tags: openstack, magnum, cloud, ansible
-:category: \*nix
 
-This Ansible role installs and configures OpenStack Magnum.
-
-Default Variables
-=================
+Ansible role that installs and configures OpenStack Magnum. Magnum is
+installed behind the Apache webserver listening on port 9511 by default.
 
 .. literalinclude:: ../../defaults/main.yml
    :language: yaml
@@ -15,9 +11,31 @@ Default Variables
 Required Variables
 ==================
 
-magnum_service_password
-magnum_galera_password
-magnum_rabbitmq_password
+This list is not exhaustive at present. See role internals for further
+details.
+
+.. code-block:: yaml
+
+    # Magnum TCP listening port
+    magnum_service_port: 9511
+
+    # Magnum service protocol http or https
+    magnum_service_proto: http
+
+    # Magnum Galera address of internal load balancer
+    magnum_galera_address: "{{ internal_lb_vip_address }}"
+
+    # Magnum Galera database name
+    magnum_galera_database_name: magnum_service
+
+    # Magnum Galera username
+    magnum_galera_user: magnum
+
+    # Magnum rabbit userid
+    magnum_rabbitmq_userid: magnum
+
+    # Magnum rabbit vhost
+    magnum_rabbitmq_vhost: /magnum
 
 Example Playbook
 ================
@@ -28,9 +46,13 @@ Example Playbook
      hosts: magnum_all
      user: root
      roles:
-       - role: "os_magnum"
+        - { role: "os_magnum", tags: [ "os-magnum" ] }
      vars:
-       external_lb_vip_address: 172.16.24.1
-       internal_lb_vip_address: 192.168.0.1
        magnum_galera_address: "{{ internal_lb_vip_address }}"
+       magnum_galera_database_name: magnum_service
+       magnum_galera_user: magnum
+       magnum_rabbitmq_userid: magnum
+       magnum_rabbitmq_vhost: /magnum
+       ansible_hostname: "{{ container_name }}"
+       is_metal: "{{ properties.is_metal|default(false) }}"
 
