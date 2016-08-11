@@ -16,13 +16,9 @@
 
 - include: magnum_init_upstart.yml
   when: pid1_name == "init"
-  tags:
-    - magnum-init
 
 - include: magnum_init_systemd.yml
   when: pid1_name == "systemd"
-  tags:
-    - magnum-init
 
 - name: Load service
   service:

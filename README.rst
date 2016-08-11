@@ -56,3 +56,12 @@ Example Playbook
        ansible_hostname: "{{ container_name }}"
        is_metal: "{{ properties.is_metal|default(false) }}"
 
+Tags
+====
+
+This role supports two tags: ``magnum-install`` and ``magnum-config``.
+
+The ``magnum-install`` tag can be used to install and upgrade.
+
+The ``magnum-config`` tag can be used to maintain configuration of the
+service.

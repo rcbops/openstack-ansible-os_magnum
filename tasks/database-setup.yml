@@ -17,9 +17,3 @@
   command: "{{ magnum_bin}}/magnum-db-manage upgrade"
   become: yes
   become_user: "{{ magnum_system_user_name }}"
-  tags:
-    - magnum-database-setup
-    - magnum-db-setup
-    - magnum-database-sync
-    - magnum-db-sync
-    - magnum-setup

@@ -16,9 +16,6 @@
 - include: magnum_install_apt.yml
   when:
     - ansible_pkg_mgr == 'apt'
-  tags:
-    - magnum-install
-    - magnum-apt-packages
 
 - name: Create developer mode constraint file
   copy:
@@ -29,9 +26,6 @@
       {% endfor %}
   when:
     - magnum_developer_mode | bool
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Clone requirements git repository
   git:
@@ -42,27 +36,18 @@
     version: "{{ magnum_requirements_git_install_branch }}"
   when:
     - magnum_developer_mode | bool
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Add constraints to pip_install_options fact for developer mode
   set_fact:
     pip_install_options_fact: "{{ pip_install_options|default('') }} --constraint /opt/developer-pip-constraints.txt --constraint /opt/requirements/upper-constraints.txt"
   when:
     - magnum_developer_mode | bool
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Set pip_install_options_fact when not in developer mode
   set_fact:
     pip_install_options_fact: "{{ pip_install_options|default('') }}"
   when:
     - not magnum_developer_mode | bool
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Install requires pip packages
   pip:
@@ -73,9 +58,6 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Get local venv checksum
   stat:
@@ -84,9 +66,6 @@
   when:
     - not magnum_developer_mode | bool
   register: local_venv_stat
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Get remote venv checksum
   uri:
@@ -95,9 +74,6 @@
   when:
     - not magnum_developer_mode | bool
   register: remote_venv_checksum
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 # TODO: When project moves to ansible 2 we can pass this a sha256sum which will:
 #       a) allow us to remove force: yes
@@ -115,16 +91,10 @@
     - not magnum_developer_mode | bool
     - (local_venv_stat.stat.exists == False or
         {{ local_venv_stat.stat.checksum is defined and local_venv_stat.stat.checksum != remote_venv_checksum.content | trim }})
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Set magnum get_venv fact
   set_fact:
     magnum_get_venv: "{{ get_venv }}"
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Remove existing venv
   file:
@@ -132,18 +102,12 @@
     state: absent
   when:
     - magnum_get_venv | changed
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Create magnum venv dir
   file:
     path: "{{ magnum_bin | dirname }}"
     state: directory
   register: magnum_venv_dir
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Unarchive pre-built venv
   unarchive:
@@ -154,9 +118,6 @@
     - not magnum_developer_mode | bool
     - magnum_get_venv | changed or magnum_venv_dir | changed
   notify: Restart magnum services
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Install pip packages
   pip:
@@ -172,9 +133,6 @@
   when:
     - magnum_get_venv | failed or magnum_developer_mode | bool
   notify: Restart magnum services
-  tags:
-    - magnum-install
-    - magnum-pip-packages
 
 - name: Update virtualenv path
   command: >
@@ -182,7 +140,3 @@
   when:
     - not magnum_developer_mode | bool
     - magnum_get_venv | success
-  tags:
-    - magnum-install
-    - magnum-pip-packages
-
