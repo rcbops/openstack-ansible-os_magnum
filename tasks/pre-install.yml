@@ -18,9 +18,6 @@
     name: "{{ magnum_system_group_name }}"
     state: "present"
     system: "yes"
-  tags:
-    - magnum-group
-    - magnum-system-settings
 
 - name: Create the Magnum system user
   user:
@@ -31,9 +28,6 @@
     system: "yes"
     createhome: "yes"
     home: "{{ magnum_system_user_home }}"
-  tags:
-    - magnum-user
-    - magnum-system-settings
 
 - name: Create Magnum's directories
   file:
@@ -45,9 +39,6 @@
   with_items:
     - path: "/etc/magnum"
     - path: "{{ magnum_system_user_home }}"
-  tags:
-    - magnum-directories
-    - magnum-system-settings
 
 - name: Test for Magnum log directory or link
   shell: |
@@ -60,10 +51,6 @@
   register: log_dir
   failed_when: false
   changed_when: log_dir.rc != 0
-  tags:
-    - magnum-directories
-    - magnum-logs
-    - magnum-system-settings
 
 - name: Create Magnum log directory
   file:
@@ -73,7 +60,3 @@
     group: "{{ magnum_system_group_name }}"
     mode: "0750"
   when: log_dir.rc != 0
-  tags:
-    - magnum-directories
-    - magnum-logs
-    - magnum-system-settings

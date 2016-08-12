@@ -20,15 +20,11 @@
   stat:
     path: /var/cache/apt
   register: apt_cache_stat
-  tags:
-    - magnum-apt-sources
 
 - name: Update apt if needed
   apt:
     update_cache: yes
   when: "ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > {{cache_timeout}}"
-  tags:
-    - magnum-apt-sources
 
 - name: Install apt packages for Magnum
   apt:
@@ -39,5 +35,3 @@
   retries: 5
   delay: 2
   with_items: "{{ magnum_apt_packages }}"
-  tags:
-    - magnum-apt-packages

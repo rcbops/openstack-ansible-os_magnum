@@ -35,10 +35,6 @@
       destination: "{{ magnum_etc_directory }}/api-paste.ini"
       config_overrides: "{{ magnum_api_paste_ini_overrides }}"
       config_type: "ini"
-  tags:
-    - magnum-config-files
-    - magnum-configuration
-    - magnum-post-install
 
 - name: Upload images to Glance
   glance:
