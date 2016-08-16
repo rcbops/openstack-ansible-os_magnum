@@ -5,6 +5,10 @@ OpenStack-Ansible Magnum
 Ansible role that installs and configures OpenStack Magnum. Magnum is
 installed behind the Apache webserver listening on port 9511 by default.
 
+
+Default variables
+~~~~~~~~~~~~~~~~~
+
 .. literalinclude:: ../../defaults/main.yml
    :language: yaml
    :start-after: under the License.
