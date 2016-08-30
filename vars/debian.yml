@@ -17,7 +17,7 @@
 cache_timeout: 600
 
 # Common apt packages
-magnum_apt_packages:
+magnum_distro_packages:
   - python-dev
   - libssl-dev
   - libxml2-dev
