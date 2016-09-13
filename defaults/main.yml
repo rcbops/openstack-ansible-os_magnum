@@ -78,7 +78,6 @@ magnum_rabbitmq_port: 5672
 magnum_keystone_auth_plugin: password
 magnum_service_project_domain_name: Default
 magnum_service_user_domain_name: default
-magnum_service_project_name: service
 
 # Trustee User
 magnum_trustee_domain_admin_name: trustee_domain_admin
