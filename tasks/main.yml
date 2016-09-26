@@ -52,13 +52,11 @@
     - magnum-install
 
 - include: database-setup.yml
-  static: no
   when: inventory_hostname == groups['magnum_all'][0]
   tags:
     - magnum-install
 
 - include: service-setup.yml
-  static: no
   when: inventory_hostname == groups['magnum_all'][0]
   tags:
     - magnum-install
