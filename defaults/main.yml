@@ -98,6 +98,7 @@ magnum_requires_pip_packages:
   - httplib2
   - python-glanceclient
   - python-keystoneclient
+  - pyyaml
   - virtualenv
   - virtualenv-tools
 

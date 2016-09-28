@@ -62,10 +62,8 @@ releasenotes/build
 
 # Test temp files
 tests/plugins
-tests/playbooks
+tests/common
 tests/test.retry
 
 # Vagrant artifacts
 .vagrant
-
-
