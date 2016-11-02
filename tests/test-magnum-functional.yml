@@ -58,7 +58,7 @@
       shell: |
         . {{ tempest_venv_bin }}/activate
         {{ tempest_venv_bin | dirname }}/run_tempest.sh --no-virtual-env ${RUN_TEMPEST_OPTS} \
-        magnum.tests.functional.api.v1.test_cluster.ClusterTest
+        magnum.tests.functional.api.v1.test_cluster.ClusterTest.test_create_cluster*
       environment:
         RUN_TEMPEST_OPTS: "--serial"
   vars_files:
