@@ -17,3 +17,4 @@
   command: "{{ magnum_bin}}/magnum-db-manage upgrade"
   become: yes
   become_user: "{{ magnum_system_user_name }}"
+  changed_when: false
