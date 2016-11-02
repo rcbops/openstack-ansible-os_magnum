@@ -35,7 +35,7 @@
   scm: git
   version: master
 - name: haproxy_server
-  src: https://github.com/openstack/openstack-ansible-haproxy_server
+  src: https://git.openstack.org/openstack/openstack-ansible-haproxy_server
   scm: git
   version: master
 - name: rabbitmq_server
