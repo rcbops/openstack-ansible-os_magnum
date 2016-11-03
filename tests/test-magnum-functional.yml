@@ -39,20 +39,6 @@
                       --public \
                       fedora-atomic-latest
       when: image_download | changed
-    # a flavor with a larger disk size is required for the magnum image
-    - name: Check if m1.magnum flavor 100 exists
-      shell: |
-        . /root/openrc
-        nova flavor-show m1.magnum
-      register: m1magnum
-      failed_when: False
-      changed_when: m1magnum.rc != 0
-    - name: Create m1.magnum flavor 100
-      shell: |
-        . /root/openrc
-        nova flavor-create m1.magnum 100 1024 10 1
-      when:
-        - m1magnum.rc != 0
   tasks:
     - name: Run tempest
       shell: |

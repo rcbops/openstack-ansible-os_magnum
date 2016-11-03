@@ -6,6 +6,13 @@ tempest_plugins:
     repo: https://git.openstack.org/openstack/magnum
     branch: master
 
+tempest_flavors:
+  - name: m1.magnum
+    id: 100
+    ram: 1024
+    disk: 10
+    vcpus: 1
+
 tempest_tempest_conf_overrides:
   magnum:
     flavor_id: m1.magnum
