@@ -17,28 +17,6 @@
   hosts: magnum_all
   user: root
   gather_facts: false
-  pre_tasks:
-    - name: Install testing pip packages
-      pip:
-        name: "python-openstackclient"
-    # using the glance library with a large image sometimes results in an incomplete image
-    # this should be more reliable
-    - name: Download magnum fedora-atomic-latest image
-      get_url:
-        url: "https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2"
-        dest: "/var/tmp/fedora-atomic-latest.qcow2"
-      register: image_download
-    - name: Upload magnum fedora-atomic-latest image to glance
-      shell: |
-        . /root/openrc
-        openstack image create \
-                      --disk-format=qcow2 \
-                      --container-format=bare \
-                      --file=/var/tmp/fedora-atomic-latest.qcow2 \
-                      --property os_distro='fedora-atomic' \
-                      --public \
-                      fedora-atomic-latest
-      when: image_download | changed
   tasks:
     - name: Run tempest
       shell: |

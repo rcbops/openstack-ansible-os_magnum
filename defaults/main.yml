@@ -92,12 +92,14 @@ magnum_glance_images: []
 #    public: true                       #Boolean - is the image public
 #    file: https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2
 #    distro: fedora-atomic              #Value for the os_distro metadata
+#    checksum: "sha1:dab00359cfa5cd393f0a6044f77c4a78c6167a47"
 
 magnum_requires_pip_packages:
   - httplib2
   - python-glanceclient
   - python-keystoneclient
   - pyyaml
+  - shade
   - virtualenv
   - virtualenv-tools
 

@@ -36,17 +36,25 @@
       config_overrides: "{{ magnum_api_paste_ini_overrides }}"
       config_type: "ini"
 
+- name: Download magnum images
+  get_url:
+    url: "{{ item.file }}"
+    dest: "/var/tmp/{{ item.file | basename }}"
+    checksum: "{{ item.checksum | default(omit) }}"
+  with_items: "{{ magnum_glance_images }}"
+  when: inventory_hostname == groups['magnum_all'][0]
+
 - name: Upload images to Glance
-  glance:
-    command: 'image-create'
-    image_name: "{{ item.name }}"
-    image_disk_format: "{{ item.disk_format }}"
-    image_container_format: "{{ item.image_format }}"
-    image_is_public: "{{ item.public }}"
-    image_url: "{{ item.file }}"
-    image_properties:
+  os_image:
+    cloud: default
+    endpoint_type: internal
+    validate_certs: "{{ keystone_service_internaluri_insecure | ternary(false, true) }}"
+    name: "{{ item.name }}"
+    disk_format: "{{ item.disk_format }}"
+    container_format: "{{ item.image_format }}"
+    is_public: "{{ item.public }}"
+    filename: "/var/tmp/{{ item.file | basename }}"
+    properties:
       os_distro: "{{ item.distro }}"
-    insecure: "{{ keystone_service_internaluri_insecure }}"
-    openrc_path: /root/openrc
   with_items: "{{ magnum_glance_images }}"
   when: inventory_hostname == groups['magnum_all'][0]

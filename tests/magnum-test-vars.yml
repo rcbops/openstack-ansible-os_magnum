@@ -18,6 +18,15 @@ magnum_config_overrides:
   certificates:
     cert_manager_type: x509keypair
 
+magnum_glance_images:
+  - name: fedora-atomic-latest
+    disk_format: qcow2
+    image_format: bare
+    public: true
+    file: https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2
+    distro: fedora-atomic
+    checksum: "sha1:dab00359cfa5cd393f0a6044f77c4a78c6167a47"
+
 heat_venv_tag: "testing"
 heat_developer_mode: true
 heat_git_install_branch: master
