@@ -87,7 +87,7 @@
 
 - name: Update virtualenv path
   command: >
-    virtualenv-tools --update-path=auto {{ magnum_bin | dirname }}
+    virtualenv-tools --update-path=auto --reinitialize {{ magnum_bin | dirname }}
   when:
     - not magnum_developer_mode | bool
     - magnum_get_venv | changed or magnum_venv_dir | changed
