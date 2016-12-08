@@ -53,8 +53,5 @@
 # Install magnum
 - include: test-install-magnum.yml
 
-# Install tempest
+# Install and execute tempest
 - include: common/test-install-tempest.yml
-
-# Test magnum
-- include: test-magnum-functional.yml
