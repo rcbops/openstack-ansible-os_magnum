@@ -114,3 +114,7 @@ magnum_pip_packages:
 # pip packages required by this role. The value is picked up
 # by the py_pkgs lookup.
 magnum_role_project_group: magnum_all
+
+# Store certificates in DB by default (x509keypair)
+# Other valid values are: barbican, local
+magnum_cert_manager_type: x509keypair
