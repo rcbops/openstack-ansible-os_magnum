@@ -48,7 +48,7 @@
 - include: common/test-install-neutron.yml
 
 # Install heat
-- include: test-install-heat.yml
+- include: common/test-install-heat.yml
 
 # Install magnum
 - include: test-install-magnum.yml
