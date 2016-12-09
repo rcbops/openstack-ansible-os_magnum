@@ -13,10 +13,8 @@ magnum_galera_database_name: magnum_service
 magnum_galera_user: magnum
 
 # TODO: Install and use barbican for certificate management
-# Override use of barbican
-magnum_config_overrides:
-  certificates:
-    cert_manager_type: x509keypair
+# Make sure we use x509keypair for now
+magnum_cert_manager_type: x509keypair
 
 magnum_glance_images:
   - name: fedora-atomic-latest
