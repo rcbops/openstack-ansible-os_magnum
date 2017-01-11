@@ -37,17 +37,17 @@
 
 - include: magnum_init.yml
   tags:
-    - magnum-install
+    - magnum-config
 
 - include: database-setup.yml
   when: inventory_hostname == groups['magnum_all'][0]
   tags:
-    - magnum-install
+    - magnum-config
 
 - include: service-setup.yml
   when: inventory_hostname == groups['magnum_all'][0]
   tags:
-    - magnum-install
+    - magnum-config
 
 - name: Restart Magnum Services
   service:
@@ -57,7 +57,6 @@
     - "{{ magnum_api_program_name }}"
     - "{{ magnum_conductor_program_name }}"
   tags:
-    - magnum-install
     - magnum-config
 
 - name: Flush handlers
