@@ -37,6 +37,7 @@
     group: "{{ item.group |default(magnum_system_group_name) }}"
     mode: "{{ item.mode |default('0750') }}"
   with_items:
+    - { path: "/openstack/venvs", mode: "0755", owner: "root", group: "root" }
     - path: "/etc/magnum"
     - path: "{{ magnum_system_user_home }}"
 
