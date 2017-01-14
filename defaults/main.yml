@@ -53,6 +53,9 @@ magnum_api_paste_ini_overrides: {}
 magnum_venv_tag: untagged
 magnum_bin: "/openstack/venvs/magnum-{{ magnum_venv_tag }}/bin"
 
+# venv_download, even when true, will use the fallback method of building the
+# venv from scratch if the venv download fails.
+magnum_venv_download: "{{ not magnum_developer_mode | bool }}"
 magnum_venv_download_url: http://127.0.0.1/venvs/untagged/ubuntu/magnum.tgz
 
 magnum_git_repo: "https://git.openstack.org/openstack/magnum"
