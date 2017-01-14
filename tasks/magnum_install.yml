@@ -44,7 +44,7 @@
     dest: "/var/cache/{{ magnum_venv_download_url | basename }}"
     checksum: "sha1:{{ lookup('url', magnum_venv_download_url | replace('tgz', 'checksum')) }}"
   register: magnum_get_venv
-  when: not magnum_developer_mode | bool
+  when: magnum_venv_download | bool
 
 - name: Remove existing venv
   file:
@@ -58,15 +58,14 @@
     state: directory
     mode: "0755"
   register: magnum_venv_dir
+  when: magnum_get_venv | changed
 
 - name: Unarchive pre-built venv
   unarchive:
     src: "/var/cache/{{ magnum_venv_download_url | basename }}"
     dest: "{{ magnum_bin | dirname }}"
     copy: "no"
-  when:
-    - not magnum_developer_mode | bool
-    - magnum_get_venv | changed or magnum_venv_dir | changed
+  when: magnum_get_venv | changed
   notify: Restart magnum services
 
 - name: Install pip packages
@@ -83,7 +82,7 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  when: magnum_developer_mode | bool
+  when: magnum_get_venv | failed or magnum_get_venv | skipped
   notify: Restart magnum services
 
 - name: CentOS remove python from path first
@@ -92,12 +91,9 @@
     state: "absent"
   when:
     - ansible_pkg_mgr == 'yum'
-    - not magnum_developer_mode | bool
-    - magnum_get_venv | changed or magnum_venv_dir | changed
+    - magnum_get_venv | changed
 
 - name: Update virtualenv path
   command: >
     virtualenv-tools --update-path=auto --reinitialize {{ magnum_bin | dirname }}
-  when:
-    - not magnum_developer_mode | bool
-    - magnum_get_venv | changed or magnum_venv_dir | changed
+  when: magnum_get_venv | changed
