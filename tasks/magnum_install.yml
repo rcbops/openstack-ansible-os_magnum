@@ -56,6 +56,7 @@
   file:
     path: "{{ magnum_bin | dirname }}"
     state: directory
+    mode: "0755"
   register: magnum_venv_dir
 
 - name: Unarchive pre-built venv
