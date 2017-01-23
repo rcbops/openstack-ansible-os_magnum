@@ -42,7 +42,6 @@
   get_url:
     url: "{{ magnum_venv_download_url }}"
     dest: "/var/cache/{{ magnum_venv_download_url | basename }}"
-    checksum: "sha1:{{ lookup('url', magnum_venv_download_url | replace('tgz', 'checksum')) }}"
   register: magnum_get_venv
   when: not magnum_developer_mode | bool
 
